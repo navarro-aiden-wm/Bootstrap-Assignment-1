@@ -1,0 +1,21 @@
+{
+  "name": "conFusion",
+  "homepage": "https://github.com/navarro-aiden-wm/Bootstrap-Assignment-1",
+  "authors": [
+    "Aiden Navarro <aiden.navarro@west-mec.org>"
+  ],
+  "description": "",
+  "main": "index.html",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "font-awesome": "^4.6.3"
+  }
+}

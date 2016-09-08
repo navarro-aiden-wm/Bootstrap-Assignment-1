@@ -9,10 +9,10 @@
     <title>Ristorante Con Fusion</title>
 
     <!-- Bootstrap -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/bootstrap-theme.min.css" rel="stylesheet">
+    <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="bower_components/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
     <link href="css/mystyles.css" rel="stylesheet">
-    <link href="css/font-awesome.min.css" rel="stylesheet">
+    <link href="bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <link href="css/bootstrap-social.css" rel="stylesheet">
 </head>
 
@@ -85,6 +85,91 @@
         </div>
     </div>
 </div>
+
+<div id="reserveModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Reserve a Table </h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" role="form">
+                    <div class="form-group">
+                        <div class="col-xs-12 col-md-2">
+                            <div class="radio">
+                                <label class="radio-inline">
+                                    <strong>Number of Guests</strong>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12 col-md-10">
+                            <div class="radio">
+                                <label class="radio-inline"><input type="radio" name="approve" value="1"><strong>1</strong></label>
+                                <label class="radio-inline"><input type="radio" name="approve" value="2"><strong>2</strong></label>
+                                <label class="radio-inline"><input type="radio" name="approve" value="3"><strong>3</strong></label>
+                                <label class="radio-inline"><input type="radio" name="approve" value="4"><strong>4</strong></label>
+                                <label class="radio-inline"><input type="radio" name="approve" value="5"><strong>5</strong></label>
+                                <label class="radio-inline"><input type="radio" name="approve" value="6"><strong>6</strong></label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-xs-12 col-md-2">
+                            <div class="radio">
+                                <label class="radio-inline">
+                                    <strong>Section</strong>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12 col-md-10">
+                            <div class="btn-group" data-toggle="buttons">
+                                <label class="btn btn-success active">
+                                    <input type="radio" name="options" id="option1" autocomplete="off" checked> Non-Smoking
+                                </label>
+                                <label class="btn btn-danger">
+                                    <input type="radio" name="options" id="option2" autocomplete="off"> Smoking
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group has-feedback">
+                        <div class="col-xs-12 col-md-3">
+                            <label>Date and Time</label>
+                        </div>
+                        <div class="col-xs-12 col-md-4 col-md-pull-1">
+                            <input type="text" placeholder="Date" class="form-control" aria-describedby="date" onfocus="(this.type='date')" required>
+                            <span class="glyphicon glyphicon-calendar form-control-feedback" aria-hidden="true"></span>
+                            <span id="date" class="sr-only">(success)</span>
+                        </div>
+                        <div class="col-xs-12 col-md-4 col-md-pull-1">
+                            <input type="text" placeholder="Time" class="form-control" aria-describedby="time" onfocus="(this.type='time')" required>
+                            <span class="glyphicon glyphicon-time form-control-feedback" aria-hidden="true"></span>
+                            <span id="time" class="sr-only">(success)</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-9 col-sm-offset-3">
+                            <button type="submit" class="btn btn-primary">Reserve</button>
+                            <button type="button" data-dismiss="modal" class="btn btn-default">Cancel</button>
+                        </div>
+                    </div>
+                </form>
+                <div class="alert alert-warning alert-dismissible" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <strong>Warning!</strong> Please <a href="#footer" style="color: black"><b>call</b></a> us to reserve for more than six guests.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
 <header class="jumbotron">
     <!-- Main component for a primary marketing message or call to action -->
 
@@ -101,7 +186,7 @@
             </div>
             <div class="col-xs-12 col-sm-2" style="margin-top: 50px">
                 <p style="padding:20px;"></p>
-                <a type="button" class="btn btn-warning btn-block" data-toggle="tooltip" title="Or Call us at +852 12345678" data-placement="bottom" href="#reserve">Reserve Table</a>
+                <a type="button" class="btn btn-warning btn-block" data-toggle="modal" data-target="#reserveModal">Reserve Table</a>
             </div>
         </div>
     </div>
@@ -151,6 +236,14 @@
                    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
                     <span class="sr-only">Next</span>
                 </a>
+                <div class="btn-group" id="carouselButtons">
+                    <button class="btn btn-danger btn-xs" id="carousel-pause">
+                        <span class="glyphicon glyphicon-pause" aria-hidden="true"></span>
+                    </button>
+                    <button class="btn btn-danger btn-xs" id="carousel-play">
+                     <span class="glyphicon glyphicon-play" aria-hidden="true"></span>
+                    </button>
+                </div>
             </div>
         </div>
     </div>
@@ -163,20 +256,15 @@
             <div class="media">
                 <div class="media-left media-middle">
                     <a href="#">
-                        <img class="media-object img-thumbnail"
-                             src="img/uthappizza.png" alt="Uthappizza">
+                        <img class="media-object img-thumbnail" src="img/uthappizza.png" alt="Uthappizza">
                     </a>
                 </div>
                 <div class="media-body">
-                    <h2 class="media-heading">
-                        Uthappizza
+                    <h2 class="media-heading">Uthappizza
                         <span class="label label-danger">Hot</span>
                         <span class="badge">$4.99</span>
                     </h2>
-                    <p>A unique combination of Indian Uthappam (pancake) and
-                        Italian pizza, topped with Cerignola olives, ripe vine
-                        cherry tomatoes, Vidalia onion, Guntur chillies and
-                        Buffalo Paneer.</p>
+                    <p>A unique combination of Indian Uthappam (pancake) and Italian pizza, topped with Cerignola olives, ripe vine cherry tomatoes, Vidalia onion, Guntur chillies and Buffalo Paneer.</p>
                     <p><a class="btn btn-primary btn-xs" href="#">More &raquo;</a></p>
                 </div>
             </div>
@@ -201,8 +289,7 @@
 
                 <div class="media-right media-middle">
                     <a href="#">
-                        <img class="media-object img-thumbnail"
-                             src="img/buffet.png" alt="Weekend Grand Buffet">
+                        <img class="media-object img-thumbnail" src="img/buffet.png" alt="Weekend Grand Buffet">
                     </a>
                 </div>
             </div>
@@ -230,65 +317,6 @@
             </div>
         </div>
     </div>
-
-    <div class="row row-content" id="reserve">
-        <div class="col-xs-12 col-sm-3" style="margin-top: 10px">
-            <h2>Reserve a Table</h2>
-        </div>
-
-        <div class="col-xs-12 col-sm-9">
-            <form class="form-horizontal" role="form">
-                <div class="form-group">
-                    <div class="col-xs-12 col-md-2">
-                        <div class="radio">
-                            <label class="radio-inline">
-                                <strong>Number of Guests</strong>
-                            </label>
-                        </div>
-                    </div>
-
-                    <div class="col-xs-12 col-md-10">
-                        <div class="radio">
-                            <label class="radio-inline"><input type="radio" name="approve" value="1"><strong>1</strong></label>
-                            <label class="radio-inline"><input type="radio" name="approve" value="2"><strong>2</strong></label>
-                            <label class="radio-inline"><input type="radio" name="approve" value="3"><strong>3</strong></label>
-                            <label class="radio-inline"><input type="radio" name="approve" value="4"><strong>4</strong></label>
-                            <label class="radio-inline"><input type="radio" name="approve" value="5"><strong>5</strong></label>
-                            <label class="radio-inline"><input type="radio" name="approve" value="6"><strong>6</strong></label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-group has-feedback">
-                    <div class="col-xs-12 col-md-3">
-                        <label>Date and Time</label>
-                    </div>
-                    <div class="col-xs-12 col-md-4 col-md-pull-1">
-                        <input type="text" placeholder="Date" class="form-control" aria-describedby="date" onfocus="(this.type='date')" required>
-                        <span class="glyphicon glyphicon-calendar form-control-feedback" aria-hidden="true"></span>
-                        <span id="date" class="sr-only">(success)</span>
-                    </div>
-                    <div class="col-xs-12 col-md-4 col-md-pull-1">
-                        <input type="text" placeholder="Time" class="form-control" aria-describedby="time" onfocus="(this.type='time')" required>
-                        <span class="glyphicon glyphicon-time form-control-feedback" aria-hidden="true"></span>
-                        <span id="time" class="sr-only">(success)</span>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="col-sm-offset-2 col-sm-10">
-                        <button type="submit" class="btn btn-primary">Reserve</button>
-                    </div>
-                </div>
-            </form>
-
-            <div class="alert alert-warning alert-dismissible" role="alert">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <strong>Warning!</strong> Please <a href="#footer" style="color: black"><b>call</b></a> us to reserve for more than six guests.
-            </div>
-        </div>
-    </div>
-</div>
 
 <footer class="row-footer" id="footer">
     <div class="container">
@@ -339,13 +367,21 @@
 
 
 <!-- jQuery -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script>
-    $(document).ready(function(){
-        $('[data-toggle="tooltip"]').tooltip();
-    });
-</script>
+<script src="bower_components/jquery/dist/jquery.min.js"></script>
+<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    <script>
+        $(document).ready(function(){
+            $("#mycarousel").carousel( { interval: 2000 } );
+            $("#carousel-pause").click(function(){
+                $("#mycarousel").carousel('pause');
+            });
+            $("#carousel-play").click(function(){
+                $("#mycarousel").carousel('cycle');
+            });
+        });
+    </script>
+
 
 </body>
 
